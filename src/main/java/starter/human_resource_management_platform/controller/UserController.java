@@ -3,7 +3,6 @@ package starter.human_resource_management_platform.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +20,6 @@ import starter.human_resource_management_platform.service.UserService;
 public class UserController {
   private final UserService userService;
 
-  @Autowired
   public UserController(UserService userService) {
     this.userService = userService;
   }
@@ -32,22 +30,24 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public Optional<User> getUserById(@PathVariable Long id) {
+  public Optional<User> getUserById(@PathVariable("id") Long id) {
     return userService.getUserById(id);
   }
 
   @PostMapping
   public User createUser(@RequestBody User user) {
+    System.out.println("55688");
+    System.out.println(user);
     return userService.createUser(user);
   }
 
   @PutMapping("/{id}")
-  public Optional<User> updateUser(@PathVariable Long id, @RequestBody User newUser) {
+  public Optional<User> updateUser(@PathVariable("id") Long id, @RequestBody User newUser) {
     return userService.updateUser(id, newUser);
   }
 
   @DeleteMapping("/{id}")
-  public boolean deleteUser(@PathVariable Long id) {
+  public boolean deleteUser(@PathVariable("id") Long id) {
     return userService.deleteUser(id);
   }
 }
